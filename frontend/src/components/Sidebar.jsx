@@ -4,9 +4,9 @@ function Sidebar() {
 
     <div className="sidebar">
 
-      <h2 className="logo">
-        SEO Audit
-      </h2>
+      <h3 style={{ color: 'white' }} className="logo">
+        Skylan Digital
+      </h3>
 
       <ul>
 

@@ -5,7 +5,7 @@ function Topbar() {
     <div className="topbar">
 
       <h1>
-        SEO Dashboard
+        Skylan Digital SEO Dashboard
       </h1>
 
     </div>
