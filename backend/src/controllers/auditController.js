@@ -56,12 +56,15 @@ const downloadReport = async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+    console.error("DOWNLOAD REPORT ERROR:");
+    console.error(error);
 
-    }
+    res.status(500).json({
+        success: false,
+        message: error.message
+    });
+
+}
 };
 
 

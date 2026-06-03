@@ -2,15 +2,19 @@ const puppeteer = require("puppeteer");
 const seoReportTemplate = require("../templates/seoReportTemplate");
 
 const generatePDF = async (report, url) => {
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: [
-            "--no-sandbox",
-            "--disable-setuid-sandbox"
-        ]
-    });
+    let browser;
 
     try {
+
+        browser = await puppeteer.launch({
+            headless: true,
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu"
+            ]
+        });
 
         const page = await browser.newPage();
 
@@ -20,12 +24,9 @@ const generatePDF = async (report, url) => {
                 url
             );
 
-        await page.setContent(
-            html,
-            {
-                waitUntil: "networkidle0"
-            }
-        );
+        await page.setContent(html, {
+            waitUntil: "networkidle0"
+        });
 
         const pdfBuffer =
             await page.pdf({
@@ -41,9 +42,18 @@ const generatePDF = async (report, url) => {
 
         return pdfBuffer;
 
+    } catch (error) {
+
+        console.error("PDF GENERATION ERROR:");
+        console.error(error);
+
+        throw error;
+
     } finally {
 
-        await browser.close();
+        if (browser) {
+            await browser.close();
+        }
 
     }
 };
